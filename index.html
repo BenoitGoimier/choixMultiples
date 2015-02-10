@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html ng-app="listesApp" style="background-color: #61a1bb;">
+    <head>
+        <meta charset="UTF-8">
+        <script src="./app/angular.js" type="text/javascript"></script>
+        <script src="./app/listesApp.js" type="text/javascript"></script>
+        <script src="./app/listesController.js" type="text/javascript"></script>
+        <link href="./app/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="./style.css" type="text/css" rel="stylesheet"/>
+    </head>
+        <body>
+        <div ng-controller="ListesController">
+            <div ng-show="step == 1" style="background-color: #61a1bb;">
+                <div class="row-fluid">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default" style="border: 0;">
+                            <div class="panel-heading" style="background-color: #61a1bb; border: 0;">
+                                <h2 style="background-color: #61a1bb; color: white;">Sélectionnez vos produits</h2>
+                                <div style="height: 450px;">
+                                    <div style="float: left; width: 45%;">
+                                        <strong>Produits disponibles :</strong>
+                                        <ul class="list-group">
+                                            <li class="list-group-item" ng-class="{active: item.active}" ng-repeat="item in dispoItems" ng-click="select(item)" ng-dblclick="addToIncludedOne(item)">
+                                                <strong>{{item.title}}</strong>
+                                            </li>
+                                        </ul>
+                                        <strong><ng-pluralize count="countActive()" when="{'0': '0 produit sélectionné', 'one': '1 produit sélectionné', 'other': '{} produits sélectionnés'}"></ng-pluralize></strong>
+                                    </div>
+                                    <div style="float: left; width: 10%; height: 100%; text-align: center;">
+                                        <div style="position: relative; top: 20%;">
+                                            <button class="btn btn-primary" type="button" ng-click="addToIncluded()">
+                                                <span class="glyphicon glyphicon-step-forward"></span>
+                                            </button><br><br><br>
+                                            <button class="btn btn-primary" type="button" ng-click="removeFromIncluded()">
+                                                <span class="glyphicon glyphicon-step-backward"></span>
+                                            </button><br><br><br>
+                                            <button class="btn btn-primary" type="button" ng-click="addAllToIncluded()">
+                                                <span class=" glyphicon glyphicon-fast-forward"></span>
+                                            </button><br><br><br>
+                                            <button class="btn btn-primary" type="button" ng-click="removeAllFromIncluded()">
+                                                <span class="glyphicon glyphicon-fast-backward"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div style="float: left; width: 45%;">
+                                        <strong>Produits sélectionnés :</strong>
+                                        <ul class="list-group">
+                                            <li class="list-group-item"  ng-class="{active: item.active}" ng-repeat="item in includedItems" ng-click="select(item)">
+                                                <strong>{{item.title}}</strong>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <br>
+                                <div>
+                                    <button class="btn btn-primary" type="button" ng-click="changeStep()" style="width: 100%; text-align: right;">
+                                        Etape suivante <span class="glyphicon glyphicon-arrow-right"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="step == 0" style="background-color: #61a1bb;">
+                <div class="row-fluid">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default" style="border: 0;">
+                            <div class="panel-heading" style="background-color: #61a1bb; border: 0;">
+                                <h2 style="background-color: #61a1bb; color: white;">Votre choix</h2>
+                                <div>
+                                    <ul class="list-group">
+                                       <li class="list-group-item two" ng-repeat="item in includedItems" style="background-color: #61a1bb; border: 0">
+                                           <a href="{{item.url}}"><img ng-src="{{item.image}}" style="padding-right: 20px;"></img></a>
+                                            <strong>{{item.title}}</strong>
+                                            <hr>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary" type="button" ng-click="changeStep()" style="width: 100%; text-align: left;">
+                                        <span class="glyphicon glyphicon-arrow-left"></span> Retour au choix précédent
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
